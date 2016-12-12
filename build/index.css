@@ -1,0 +1,217 @@
+body {
+  margin: 0px;
+  padding: 0px;
+  background-color: #f8f8f8 !important;
+  box-sizing: border-box;
+}
+
+header {
+  background-color: #333333;
+  text-align: center;
+  color: white;
+  padding: 10px 0px;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  width: 60%;
+  margin: auto;
+}
+
+.day {
+  justify-content: center;
+}
+
+.day.checkbox.checkbox-inline {
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
+.Progress-adjuster {
+  display: inline-block;
+}
+
+.Progress-adjuster-arrow {
+  display: inline-block;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.Progress-adjuster-arrow:hover {
+  box-shadow: 2px 2px 2px 2px #f2f2f2;
+}
+
+.progress-item {
+  display: block;
+  margin-bottom: 12.5px;
+  padding: 5px 5px 20px 5px;
+}
+
+.Progress-item-in-focus {
+  box-shadow: 2px 2px 2px 10px #f2f2f2;
+}
+
+.progress-item-label {
+  display: inline-block;
+  margin-right: 15px;
+}
+
+.progress-add-button {
+  cursor: pointer;
+  padding: 5px;
+  text-align: center;
+  margin-top: 5px;
+}
+
+.progress-add-button:hover {
+  background-color: #f2f2f2;
+}
+
+.step-nodes {
+  display: flex;
+  width: 500;
+  justify-content: space-around;
+}
+
+.box {
+  box-shadow: 2px 2px 2px 2px #e7e7e7;
+  background-color: white;
+}
+
+.step {
+  background-color: #f6dede;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  flex-grow: 1;
+}
+
+.active-step {
+  background-color: #9ed390;
+}
+
+.Overall-progress {
+  display: flex;
+  height: 4px;
+  margin-bottom: 10px;
+}
+
+.Overall-progress-done {
+  background-color: lightgreen;
+}
+
+.Overall-progress-not-done {
+  background-color: red;
+}
+
+.Detailview {
+  margin-top: 12.5px;
+  width: 80%;
+  display: inline-block;
+}
+
+.Sidebar {
+  width: 18%;
+  margin-right: 12.5px;
+  list-style: none;
+  display: inline-block;
+  float: left;
+  margin-top: 12.5px;
+  padding: 0px;
+}
+
+.Sidebar-option {
+  text-decoration: none;
+  width: 100%;
+  padding: 15px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.Sidebar-option-active {
+  background-color: #f2f2f2;
+}
+
+.Sidebar-option:not(:last-child){
+  border-bottom: 2px solid #f2f2f2;
+}
+
+.Sidebar-option:hover {
+  background-color: #f2f2f2;
+}
+
+.Task {
+  margin-bottom: 12.5px;
+  display: flex;
+  padding: 10px;
+}
+
+.Task span {
+  margin-right: 10px;
+}
+
+.Task-checked {
+  text-decoration: line-through;
+  background-color: #f2f2f2;
+}
+
+.Task:hover {
+  background-color: #f2f2f2;
+  cursor: pointer;
+}
+
+.SubTask {
+  display: block;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+
+.SubTask span {
+  padding: 5px;
+}
+
+.SubTask:hover {
+  background-color: #f2f2f2;
+}
+
+.SubTask-delete {
+  padding: 5px 20px;
+  color: transparent;
+}
+
+.SubTask-delete:hover {
+  background-color: #efcfcf;
+}
+
+.SubTask:hover .SubTask-delete {
+  color: black;
+}
+
+.SubTask:first-child {
+  margin-top: 20px;
+}
+
+.SubTask:not(:last-child) {
+  border-bottom: 2px solid #f2f2f2;
+}
+
+.SubTask-checked {
+  background-color: #f2f2f2;
+  text-decoration: line-through;
+}
+
+.AddSubTaskButton {
+  padding: 5px;
+  list-style: none;
+  display: flex;
+}
+
+.AddSubTaskButton span {
+  flex-grow: 1;
+}
+
+.AddSubTaskButton input {
+  flex-grow: 100;
+}
