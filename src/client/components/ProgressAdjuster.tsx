@@ -1,8 +1,8 @@
-import React from 'react';
+import * as React from 'react';
 
 import StateChanger from './StateChanger';
 
-export default class ProgressAdjuster extends React.Component {
+export default class ProgressAdjuster extends React.Component<any, any> {
   render(){
     return(
       <div className="Progress-adjuster">

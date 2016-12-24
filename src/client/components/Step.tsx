@@ -1,6 +1,6 @@
-import React from 'react';
+import * as React from 'react';
 
-export default class Step extends React.Component {
+export default class Step extends React.Component<any, any> {
   render(){
     const classes = "step" + ( this.props.isActive ? " active-step" : "" );
 

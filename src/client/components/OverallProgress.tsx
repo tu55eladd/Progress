@@ -1,6 +1,6 @@
-import React from 'react';
+import * as React from 'react';
 
-export default class OverallProgress extends React.Component {
+export default class OverallProgress extends React.Component<any, any> {
 
   render(){
     const done    = Math.floor( (this.props.checkedCount / this.props.stepCount) * 100 );

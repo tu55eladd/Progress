@@ -1,23 +1,27 @@
-import React from 'react';
+import * as React from 'react';
 
 import ProgressAdjuster from './ProgressAdjuster';
 import Step from './Step';
 import StateChanger from './StateChanger';
-import SubTask from './SubTask';
-import AddSubTaskButton from './AddSubTaskButton';
+import SubTaskComponent from './SubTask';
+import TextInput from './TextInput';
 
-export default class ProgressItem extends React.Component {
-  constructor(props){
+export default class ProgressItemComponent extends React.Component<any, any> {
+
+  isFocus:Boolean;
+  arrowKeyHandler:EventListenerObject;
+
+  constructor( props:any ){
     super(props);
     this.state = { checkedSteps: this.props.checkedSteps, inFocus: false };
   }
 
-  getArrowKeyHandler(){
+  getArrowKeyHandler():EventListenerObject{
     if(this.arrowKeyHandler){
       return this.arrowKeyHandler;
     }
 
-    const handler = (event) => {
+    const handler = (event:any) => {
       if(event.keyCode == 37){
         StateChanger.decreaseProgress(this.props.index);
       }
@@ -45,24 +49,28 @@ export default class ProgressItem extends React.Component {
   getTaskNodes(){
     if( this.props.showSubTasks && this.props.subTasks ){
       const nodes = this.props.subTasks
-        .map( (subtask, index) => {
-          return <SubTask
+        .map( (subtask:SubTask, index:number) => {
+          return <SubTaskComponent
                     name={subtask.name}
                     key={index}
                     index={index}
                     checked={subtask.checked}
                     progressItemIndex={this.props.index} /> })
-      nodes.push( <AddSubTaskButton key={-1} progressItemIndex={this.props.index} /> );
+      //nodes.push( <AddSubTaskButton key={-1} progressItemIndex={this.props.index} /> );
+      nodes.push( <TextInput key={-1} placeholder="Subtask name" label="Add new subtask:"
+        clickHandler={ (name:string) => {
+          StateChanger.addSubTask( this.props.index, name );
+        } } /> );
       return nodes;
     }
     return [];
   }
 
   getStepNodes(){
-    const stepNodes = [];
+    const stepNodes:JSX.Element[] = [];
     if( this.props.subTasks ){
       this.props.subTasks
-        .map( (subtask, index) => {
+        .map( (subtask:SubTask, index:number) => {
           stepNodes.push( <Step key={index} isActive={subtask.checked}/> );
         })
       return stepNodes;
@@ -89,9 +97,13 @@ export default class ProgressItem extends React.Component {
             tabIndex={ this.props.index }
             onClick={ this.props.clickHandler } >
         <p className="progress-item-label">{ this.props.name }</p>
-        <div className="step-nodes">
-        { stepNodes }
-        <ProgressAdjuster key={this.props.id} id={this.props.id} index={this.props.index}/>
+        <div className="progress-item-top-bar">
+          <div className="step-nodes">
+            { stepNodes }
+          </div>
+          <div className="progress-item-top-bar-keys">
+            <ProgressAdjuster key={this.props.id} id={this.props.id} index={this.props.index}/>
+          </div>
         </div>
         <ul>
           { taskNodes }

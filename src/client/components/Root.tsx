@@ -1,23 +1,25 @@
-import React from 'react';
+import * as React from 'react';
 
 import Progresses from './Progresses';
 import SingleTasks from './SingleTasks';
 import Sidebar from './Sidebar';
 
-const detailViews = [
+const detailViews:DetailView[] = [
   { name: "Tracked progresses", active: false },
   { name: "Single tasks", active: false },
 ]
 
-export default class Root extends React.Component {
-  constructor(props){
+export default class Root extends React.Component<any, any>  {
+  lastViewIndex:number;
+
+  constructor(props:any){
     super(props);
-    this.selectedOption = <Progresses progressItems={this.props.progressItems} />;
     this.lastViewIndex = 0;
-    this.state = { selectedOption: this.getSelectedOption };
+    this.state = { selectedOption: this.getSelectedOption, lastViewIndex: 0 };
   }
 
-  setView(index){
+  setView(index:number){
+    /* If first selection */
     if(this.lastViewIndex !== undefined){
       detailViews[this.lastViewIndex].active = false;
     }

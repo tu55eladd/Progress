@@ -1,12 +1,12 @@
-import React from 'react';
+import * as React from 'react';
 
 import StateChanger from './StateChanger';
 
-export default class SubTask extends React.Component {
+export default class SubTaskComponent extends React.Component<any, any> {
 
-  deleteHandler( event ){
+  deleteHandler( event:any ){
     event.stopPropagation();
-    StateChanger.deleteSubTask({ progressItemIndex: this.props.progressItemIndex, subTaskIndex: this.props.index });
+    StateChanger.deleteSubTask( this.props.progressItemIndex, this.props.index );
   }
 
   render(){
@@ -15,7 +15,7 @@ export default class SubTask extends React.Component {
       <li className={classes}
           checked={ this.props.checked }
           onClick={ (event) => { event.stopPropagation(); StateChanger.toggleSubTask( this.props.progressItemIndex, this.props.index) } }>
-          <span>{ this.props.name }</span>
+          <span className="SubTask-name">{ this.props.name }</span>
           <span className="SubTask-delete" onClick={ this.deleteHandler.bind(this) } >delete</span>
       </li>
     )

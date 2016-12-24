@@ -1,4 +1,5 @@
-import ReactDOM from 'react-dom';
+import * as ReactDOM from 'react-dom';
+import * as React from 'react';
 
 export default class ReactComponentRenderer {
   constructor(klass, container) {

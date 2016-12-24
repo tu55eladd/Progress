@@ -1,23 +1,37 @@
 var path = require("path");
 module.exports = {
   entry: {
-    app: ["./src/index.js"]
+    app: ["./src/client/index.ts"]
   },
 
   output: {
-    path: path.resolve(__dirname, "build"),
-    //publicPath: "/assets/",
+    path: "./build/server/public/",
     filename: "bundle.js"
   },
+
+  resolve: {
+      // Add '.ts' and '.tsx' as resolvable extensions.
+      extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
+  },
+
   devtool: "source-map",
+
   module: {
-    loaders: [{
-      test: /\.jsx?$/,
-      exclude: /(node_modules|bower_components)/,
-      loader: 'babel-loader',
-      query: {
-        presets: ['es2015', 'react']
-      }
-    }]
+    loaders: [
+      { 
+        test: /\.(js|tsx?)$/, 
+        loaders: ["babel-loader", "awesome-typescript-loader"],
+        exclude: /node_modules/, 
+        //query: { presets: ['es2015','react'] }
+      },
+    ],
+    preLoader: [
+      { test: /\.js$/, loader: 'source-map-loader' }
+    ]
+  },
+
+  externals: {
+    "react": "React",
+    "react-dom": "ReactDOM"
   }
 };
