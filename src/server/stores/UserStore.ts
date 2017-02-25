@@ -1,43 +1,102 @@
 import * as NeDB from 'nedb';
 
-const filename = "./data"; // path to file
+const filename = "./userdata.db"; // path to file
 const config = {
     filename,
     autoload: true,
     timestampData: true
 }
 
-const promisify = () => {
-
-}
-
-export default class UserStore {
+class UserStore {
     store:NeDB;
-    
-    constuctor(){
-        const store = new NeDB(config);
-        store.loadDatabase();
+
+    constructor(){
+        console.log("Connecting to database...");
+        try{
+            this.store = new NeDB(config);
+            this.store.loadDatabase();
+        }
+        catch(error){
+            console.log(error);
+        }
+        console.log("Connected");
     }
 
-    async addUser( user:User ):Promise<any>{
-        const doc = await this.store.insert(user);
-    }
 
-    async getUser( username:string ):Promise<any>{
-        return this.store.find( { name: username }, (err:any, docs:any) => {
-            return docs;
+    static promisify<ArgType, RetType> (func:Function, argument:ArgType): Promise<RetType> {
+    return new Promise((resolve, reject) => {
+        console.log("func : ", func);
+        console.log("arg : ", argument);
+        try{
+            func( argument, (err:any, documents:any) => {
+                if(err){
+                    reject(err);
+                    return;
+                }
+                resolve(documents);
+            });
+        }
+        catch(err){
+            console.error(err);
+        }
+        });
+    };
+
+
+    createUser( user:User ):Promise<User> {
+        return new Promise((resolve, reject) => { 
+            this.store.insert(user, (err, docs:User) => {
+                if(err){
+                    reject(err);
+                    return;
+                }
+                resolve(docs);    
+            });
         })
     }
 
-    getAllUsers(){
-        this.store.find( {}, ()=> {
 
+    async updateData( user:User ) {
+            await this.store.update({ name: user.name, email: user.email }, { $set: { state: user.state } });
+    }
+
+
+    async getUser( username:string ) :Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.store.findOne( { name: username }, (err:any, docs:User) => {
+                if(err){
+                    reject(err);
+                    return;
+                }
+                resolve(docs);
+            })
+        });        
+    }
+
+
+    getAllUsers():Promise<User[]> {
+        return new Promise( (resolve, reject) => {
+            this.store.find({}, (err:any, docs:User[]) => {
+                if(err){
+                    reject(err);
+                    return;
+                }
+                resolve(docs);
+            });
         });
     }
 
-    deleteUser(){
 
+    deleteUser( name:string ){
+        return new Promise( (resolve, reject) => {
+            this.store.remove({ name }, { multi: true }, (err, numRemoved) => {
+                if(err){
+                    reject(err);
+                }
+                resolve(numRemoved);
+            })
+        });
     }
-
-
 }
+
+export default new UserStore();

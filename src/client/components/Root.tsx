@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import Header from './Header';
 import Progresses from './Progresses';
 import SingleTasks from './SingleTasks';
 import Sidebar from './Sidebar';
@@ -15,8 +16,9 @@ export default class Root extends React.Component<any, any>  {
   constructor(props:any){
     super(props);
     this.lastViewIndex = 0;
-    this.state = { selectedOption: this.getSelectedOption, lastViewIndex: 0 };
+    this.state = { selectedOption: this.getSelectedOption, lastViewIndex: 0, stateIsLoaded: false };
   }
+
 
   setView(index:number){
     /* If first selection */
@@ -28,6 +30,7 @@ export default class Root extends React.Component<any, any>  {
     this.setState({ selectedOption: this.getSelectedOption() }); // Only to trigger rendering
   }
 
+
   getSelectedOption(){
     if(detailViews[this.lastViewIndex].name === "Single tasks" ){
       return <SingleTasks tasks={this.props.tasks} />;
@@ -37,11 +40,31 @@ export default class Root extends React.Component<any, any>  {
     }
   }
 
+
+  setStateIsLoaded( isLoaded:boolean ){
+    this.setState({ stateIsLoaded:isLoaded });
+  }
+
   render() {
+
+    var content;
+    if(this.state.stateIsLoaded){
+      content = (
+        <div className="content">
+          <div className="Sidebar-wrapper">
+          <Sidebar detailViews={detailViews} setView={ this.setView.bind(this) } />
+          </div>
+          { this.getSelectedOption() }
+      </div>)
+    } 
+    else{
+      content = (<p>YOYOYOYO</p>)
+    }
+
     return(
-      <div style={{width: 100+"%"}} >
-        <Sidebar detailViews={detailViews} setView={ this.setView.bind(this) } />
-        { this.getSelectedOption() }
+      <div>
+        <Header setStateIsLoaded={ this.setStateIsLoaded.bind(this) } />
+        { content }
       </div>
     )
 

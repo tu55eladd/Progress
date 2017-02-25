@@ -18,13 +18,10 @@ export default class SingleTasks extends React.Component <any, any> {
     return { stepCount, checkedCount };
   }
 
-  getTaskNodes(){
-
-  }
 
   render(){
-
-    const taskNodes = StateChanger.getTasks()
+    const tasks = StateChanger.getTasks();
+    const taskNodes = tasks
       .map( (task, index) => {
         const checked = task.checked;
         const classes = "Task box" + ( checked ? " Task-checked" : "" );
@@ -34,6 +31,7 @@ export default class SingleTasks extends React.Component <any, any> {
                   <input type="checkbox" />
                 </div>
                 <CategoryChooser category={ task.category } index={index} />
+                <span className="Subtask-delete" onClick={ (event) => { event.stopPropagation(); StateChanger.deleteTask(index) } } >Delete</span>
               </div>
       })
 

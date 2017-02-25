@@ -5,7 +5,7 @@ module.exports = {
   },
 
   output: {
-    path: "./build/server/public/",
+    path: "./public",
     filename: "bundle.js"
   },
 
@@ -15,6 +15,8 @@ module.exports = {
   },
 
   devtool: "source-map",
+
+  watch: true,
 
   module: {
     loaders: [
