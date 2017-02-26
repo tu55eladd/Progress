@@ -252,13 +252,13 @@ header {
   list-style: none;
   display: none;
   z-index: 3;
-  background-color: #f2f2f2;
+  background-color: #ffffff;
   position: absolute;
   padding: 15px;
 }
 
 .CategoryChooser-list:not(:last-child){
-  border-bottom: 2px solid #ffffff;
+  border-bottom: 2px solid #f2f2f2;
 }
 
 .CategoryChooser-list:not(:last-child):hover {
@@ -267,6 +267,10 @@ header {
 
 .CategoryChooser:hover .CategoryChooser-list{
   display: block;
+}
+
+.CategoryChooser-list li:hover {
+  background-color: #f2f2f2;
 }
 
 .TextInput-field {

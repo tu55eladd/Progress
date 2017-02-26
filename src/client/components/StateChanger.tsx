@@ -88,7 +88,7 @@ export default class StateChanger {
   }
 
   static setCategory( taskIndex:number , categoryName:string ){
-    if(! (categoryName in StateChanger.state.categories) ){
+    if( StateChanger.state.categories.indexOf(categoryName) === -1) {
       return;
     }
     StateChanger.state.tasks[taskIndex].category = categoryName;
@@ -97,6 +97,17 @@ export default class StateChanger {
 
   static getCategoryFilters(){
     return StateChanger.state.categoryFilters;
+  }
+
+  static addCategoryFilter( filter:string ){
+    StateChanger.state.categoryFilters.push( filter );
+    this.reRender(StateChanger.state);
+  }
+
+  static removeCategoryFilter( filter:string ){
+    const index = StateChanger.state.categoryFilters.indexOf( filter );
+    StateChanger.state.categoryFilters.splice( index, 1 );
+    this.reRender(StateChanger.state);
   }
 
   static getTasks(){

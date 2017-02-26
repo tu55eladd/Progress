@@ -5,6 +5,7 @@ import CategoryFilter from './CategoryFilter';
 import OverallProgress from './OverallProgress';
 import StateChanger from './StateChanger';
 import TextInput from './TextInput';
+import TaskComponent from './Task';
 
 
 export default class SingleTasks extends React.Component <any, any> {
@@ -20,20 +21,15 @@ export default class SingleTasks extends React.Component <any, any> {
 
 
   render(){
-    const tasks = StateChanger.getTasks();
+    const categoryFilter:String[] = StateChanger.getCategoryFilters();
+    var tasks:Task[] = StateChanger.getTasks();
+    if( categoryFilter.length != 0 ){
+      tasks = tasks.filter( (task) => { return categoryFilter.indexOf(task.category) != -1 } );
+    }
     const taskNodes = tasks
       .map( (task, index) => {
-        const checked = task.checked;
-        const classes = "Task box" + ( checked ? " Task-checked" : "" );
-        return <div className={classes} checked={ checked ? true : false } key={index} onClick={ () => { StateChanger.toggleTask( task.id ); } } >
-                <div>
-                  <span>{ task.name }</span>
-                  <input type="checkbox" />
-                </div>
-                <CategoryChooser category={ task.category } index={index} />
-                <span className="Subtask-delete" onClick={ (event) => { event.stopPropagation(); StateChanger.deleteTask(index) } } >Delete</span>
-              </div>
-      })
+        return <TaskComponent task={ task } key={ index } index={ index }  />
+      });
 
     const progressNumbers = this.getOverallProgress();
 

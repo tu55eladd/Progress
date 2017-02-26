@@ -6,6 +6,7 @@ import TextInput from './TextInput';
 export default class CategoryChooser extends React.Component<any, any> {
 
   setCategory( event:React.MouseEvent<HTMLLIElement>, taskIndex:number, categoryName:string ){
+    console.log("Setting category at index", taskIndex);
     event.stopPropagation();
     StateChanger.setCategory( taskIndex, categoryName );
   }

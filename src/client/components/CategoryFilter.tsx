@@ -2,8 +2,13 @@ import * as React from 'react';
 
 import Chip from './Chip';
 import StateChanger from './StateChanger';
+import TextInput from './TextInput';
 
 export default class CategoryFilter extends React.Component<any, any> {
+
+  createNewFilter( filterName:string ){
+    StateChanger.addCategoryFilter( filterName );
+  }
 
   getFilterChips(){
     return StateChanger.getCategoryFilters()
@@ -19,6 +24,7 @@ export default class CategoryFilter extends React.Component<any, any> {
       <div className="CategoryFilters" >
         <div>Filter:</div>
         { this.getFilterChips() }
+        <TextInput clickHandler={ this.createNewFilter.bind(this) } />
       </div>
     )
   }
