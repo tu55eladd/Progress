@@ -29,7 +29,7 @@ export default class Progresses extends React.Component<any, any> {
       .reduce( (accumulator, currentValue) => { return accumulator += currentValue } );
     this.checkedCount = progressItems
       .map( (progressItem) => {
-        return progressItem.subtasks ? // will return count of checked sub-tasks
+        return progressItem.subtasks && progressItem.subtasks.length !== 0 ? // will return count of checked sub-tasks
           progressItem.subtasks
           .map( task => task.checked ? 1-0 : 0-0 ) // 1 | 0 is parsed as boolean, 1-0 is parsed as a number ( by typescript )
           .reduce( (accumulator, currentValue) => { return accumulator + currentValue } )
