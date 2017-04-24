@@ -4,3 +4,5 @@ public/bundle.js.map
 /build/assets/
 /build/bundle.js
 /node_modules
+
+userdata\.db
