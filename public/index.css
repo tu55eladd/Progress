@@ -84,6 +84,15 @@ header {
   margin-right: 15px;
 }
 
+.progress-item-delete {
+  color: #333333;
+  cursor: pointer;
+}
+
+.progress-item-delete:hover {
+  background-color: #efcfcf;
+}
+
 .progress-add-button {
   cursor: pointer;
   padding: 5px;

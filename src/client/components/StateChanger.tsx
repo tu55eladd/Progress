@@ -41,7 +41,8 @@ export default class StateChanger {
         steps: numberOfSteps ? numberOfSteps : 10,
         checkedSteps: 0,
         weight: 1,
-        name: name
+        name: name,
+        subtasks: []
       })
     StateChanger.state.nextId = StateChanger.state.nextId + 1;
     this.reRender(StateChanger.state);
@@ -73,6 +74,11 @@ export default class StateChanger {
 
   static deleteSubTask( progressItemIndex:number, subTaskIndex:number ){
     StateChanger.state.progressItems[progressItemIndex].subtasks.splice( subTaskIndex, 1 );
+    this.reRender(StateChanger.state);
+  }
+
+  static deleteProgress( progressItemIndex:number ){
+    StateChanger.state.progressItems.splice( progressItemIndex, 1 );
     this.reRender(StateChanger.state);
   }
 

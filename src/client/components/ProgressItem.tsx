@@ -46,6 +46,10 @@ export default class ProgressItemComponent extends React.Component<any, any> {
     this.setState( { inFocus: true } );
   }
 
+  deleteProgress( progressIndex:number ){
+    StateChanger.deleteProgress(progressIndex);
+  }
+
   getTaskNodes(){
     if( this.props.showSubTasks && this.props.subTasks ){
       const nodes = this.props.subTasks
@@ -103,6 +107,9 @@ export default class ProgressItemComponent extends React.Component<any, any> {
           </div>
           <div className="progress-item-top-bar-keys">
             <ProgressAdjuster key={this.props.id} id={this.props.id} index={this.props.index}/>
+          </div>
+          <div className="progress-item-delete" onClick={ () => { this.deleteProgress(this.props.index) } } >
+            <span>Delete</span>
           </div>
         </div>
         <ul>
